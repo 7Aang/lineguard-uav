@@ -1,0 +1,1 @@
+"""LineGuard-Agent domain package."""

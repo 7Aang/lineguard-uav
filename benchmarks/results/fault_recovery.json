@@ -1,0 +1,232 @@
+{
+  "scope": "Actual subprocess exits at ledger boundaries, with a synthetic dispatch log.\n\nThis is not PX4/hardware fault injection. 'Operator' resolution is a test fixture.\n",
+  "cases": [
+    {
+      "phase": "before_claim",
+      "iteration": 0,
+      "subprocess_exit": 17,
+      "state_after_crash": "approved",
+      "v1_blocked_without_reconciliation": false,
+      "operator_resolution_fixture": null,
+      "late_write_rejected": null,
+      "recovered": true,
+      "synthetic_dispatch_count": 1
+    },
+    {
+      "phase": "before_claim",
+      "iteration": 1,
+      "subprocess_exit": 17,
+      "state_after_crash": "approved",
+      "v1_blocked_without_reconciliation": false,
+      "operator_resolution_fixture": null,
+      "late_write_rejected": null,
+      "recovered": true,
+      "synthetic_dispatch_count": 1
+    },
+    {
+      "phase": "before_claim",
+      "iteration": 2,
+      "subprocess_exit": 17,
+      "state_after_crash": "approved",
+      "v1_blocked_without_reconciliation": false,
+      "operator_resolution_fixture": null,
+      "late_write_rejected": null,
+      "recovered": true,
+      "synthetic_dispatch_count": 1
+    },
+    {
+      "phase": "before_claim",
+      "iteration": 3,
+      "subprocess_exit": 17,
+      "state_after_crash": "approved",
+      "v1_blocked_without_reconciliation": false,
+      "operator_resolution_fixture": null,
+      "late_write_rejected": null,
+      "recovered": true,
+      "synthetic_dispatch_count": 1
+    },
+    {
+      "phase": "before_claim",
+      "iteration": 4,
+      "subprocess_exit": 17,
+      "state_after_crash": "approved",
+      "v1_blocked_without_reconciliation": false,
+      "operator_resolution_fixture": null,
+      "late_write_rejected": null,
+      "recovered": true,
+      "synthetic_dispatch_count": 1
+    },
+    {
+      "phase": "after_claim",
+      "iteration": 0,
+      "subprocess_exit": 17,
+      "state_after_crash": "running",
+      "v1_blocked_without_reconciliation": true,
+      "operator_resolution_fixture": "not_executed",
+      "late_write_rejected": true,
+      "recovered": true,
+      "synthetic_dispatch_count": 1
+    },
+    {
+      "phase": "after_claim",
+      "iteration": 1,
+      "subprocess_exit": 17,
+      "state_after_crash": "running",
+      "v1_blocked_without_reconciliation": true,
+      "operator_resolution_fixture": "not_executed",
+      "late_write_rejected": true,
+      "recovered": true,
+      "synthetic_dispatch_count": 1
+    },
+    {
+      "phase": "after_claim",
+      "iteration": 2,
+      "subprocess_exit": 17,
+      "state_after_crash": "running",
+      "v1_blocked_without_reconciliation": true,
+      "operator_resolution_fixture": "not_executed",
+      "late_write_rejected": true,
+      "recovered": true,
+      "synthetic_dispatch_count": 1
+    },
+    {
+      "phase": "after_claim",
+      "iteration": 3,
+      "subprocess_exit": 17,
+      "state_after_crash": "running",
+      "v1_blocked_without_reconciliation": true,
+      "operator_resolution_fixture": "not_executed",
+      "late_write_rejected": true,
+      "recovered": true,
+      "synthetic_dispatch_count": 1
+    },
+    {
+      "phase": "after_claim",
+      "iteration": 4,
+      "subprocess_exit": 17,
+      "state_after_crash": "running",
+      "v1_blocked_without_reconciliation": true,
+      "operator_resolution_fixture": "not_executed",
+      "late_write_rejected": true,
+      "recovered": true,
+      "synthetic_dispatch_count": 1
+    },
+    {
+      "phase": "after_dispatch",
+      "iteration": 0,
+      "subprocess_exit": 17,
+      "state_after_crash": "running",
+      "v1_blocked_without_reconciliation": true,
+      "operator_resolution_fixture": "completed",
+      "late_write_rejected": true,
+      "recovered": true,
+      "synthetic_dispatch_count": 1
+    },
+    {
+      "phase": "after_dispatch",
+      "iteration": 1,
+      "subprocess_exit": 17,
+      "state_after_crash": "running",
+      "v1_blocked_without_reconciliation": true,
+      "operator_resolution_fixture": "completed",
+      "late_write_rejected": true,
+      "recovered": true,
+      "synthetic_dispatch_count": 1
+    },
+    {
+      "phase": "after_dispatch",
+      "iteration": 2,
+      "subprocess_exit": 17,
+      "state_after_crash": "running",
+      "v1_blocked_without_reconciliation": true,
+      "operator_resolution_fixture": "completed",
+      "late_write_rejected": true,
+      "recovered": true,
+      "synthetic_dispatch_count": 1
+    },
+    {
+      "phase": "after_dispatch",
+      "iteration": 3,
+      "subprocess_exit": 17,
+      "state_after_crash": "running",
+      "v1_blocked_without_reconciliation": true,
+      "operator_resolution_fixture": "completed",
+      "late_write_rejected": true,
+      "recovered": true,
+      "synthetic_dispatch_count": 1
+    },
+    {
+      "phase": "after_dispatch",
+      "iteration": 4,
+      "subprocess_exit": 17,
+      "state_after_crash": "running",
+      "v1_blocked_without_reconciliation": true,
+      "operator_resolution_fixture": "completed",
+      "late_write_rejected": true,
+      "recovered": true,
+      "synthetic_dispatch_count": 1
+    },
+    {
+      "phase": "after_commit",
+      "iteration": 0,
+      "subprocess_exit": 17,
+      "state_after_crash": "completed",
+      "v1_blocked_without_reconciliation": false,
+      "operator_resolution_fixture": null,
+      "late_write_rejected": null,
+      "recovered": true,
+      "synthetic_dispatch_count": 1
+    },
+    {
+      "phase": "after_commit",
+      "iteration": 1,
+      "subprocess_exit": 17,
+      "state_after_crash": "completed",
+      "v1_blocked_without_reconciliation": false,
+      "operator_resolution_fixture": null,
+      "late_write_rejected": null,
+      "recovered": true,
+      "synthetic_dispatch_count": 1
+    },
+    {
+      "phase": "after_commit",
+      "iteration": 2,
+      "subprocess_exit": 17,
+      "state_after_crash": "completed",
+      "v1_blocked_without_reconciliation": false,
+      "operator_resolution_fixture": null,
+      "late_write_rejected": null,
+      "recovered": true,
+      "synthetic_dispatch_count": 1
+    },
+    {
+      "phase": "after_commit",
+      "iteration": 3,
+      "subprocess_exit": 17,
+      "state_after_crash": "completed",
+      "v1_blocked_without_reconciliation": false,
+      "operator_resolution_fixture": null,
+      "late_write_rejected": null,
+      "recovered": true,
+      "synthetic_dispatch_count": 1
+    },
+    {
+      "phase": "after_commit",
+      "iteration": 4,
+      "subprocess_exit": 17,
+      "state_after_crash": "completed",
+      "v1_blocked_without_reconciliation": false,
+      "operator_resolution_fixture": null,
+      "late_write_rejected": null,
+      "recovered": true,
+      "synthetic_dispatch_count": 1
+    }
+  ],
+  "summary": {
+    "cases": 20,
+    "v1_recovery_flow_available": 10,
+    "v2_recovery_flow_completed": 20,
+    "operator_assisted_cases": 10,
+    "duplicate_synthetic_dispatches": 0
+  }
+}
