@@ -114,6 +114,38 @@ class ExecutionLedger:
                 raise DispatchDenied("Illegal terminal state transition")
             self.event(conn, task_id, state)
 
+    def wait_for_terminal(
+        self,
+        task_id: str,
+        contract: str,
+        timeout_s: float,
+        poll_s: float = 0.01,
+    ) -> dict:
+        """Wait for an in-flight duplicate and return its committed result.
+
+        This only coalesces requests while the original executor is running.  It
+        never changes an unknown outcome or authorizes another dispatch.
+        """
+
+        if timeout_s <= 0 or poll_s <= 0:
+            raise ValueError("Positive timeout and poll interval required")
+        deadline = time.monotonic() + timeout_s
+        while True:
+            row = self.inspect(task_id)
+            if row is None:
+                raise DispatchDenied("APPROVAL_REQUIRED")
+            if row["contract"] != contract:
+                raise DispatchDenied("APPROVED_CONTRACT_CHANGED")
+            if row["state"] == "completed":
+                with self.connection() as conn:
+                    self.event(conn, task_id, "concurrent_result_reused")
+                return json.loads(row["result"])
+            if row["state"] != "running":
+                raise DispatchDenied("OUTCOME_NOT_CONFIRMED: no automatic redispatch")
+            if time.monotonic() >= deadline:
+                raise DispatchDenied("EXECUTION_IN_PROGRESS: duplicate wait timed out")
+            time.sleep(min(poll_s, max(0.0, deadline - time.monotonic())))
+
     def uncertain(self, task_id: str, reason: str):
         with self.connection() as conn:
             cursor = conn.execute(

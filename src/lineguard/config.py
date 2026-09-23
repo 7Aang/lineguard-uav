@@ -27,6 +27,7 @@ class LineGuardSettings:
     waypoint_tolerance_m: float
     waypoint_timeout_s: float
     dryrun_realtime: bool
+    duplicate_wait_timeout_s: float
 
 
 def _px4_connections() -> tuple[str, ...]:
@@ -70,6 +71,7 @@ def get_settings() -> LineGuardSettings:
         waypoint_timeout_s=float(os.getenv("LINEGUARD_WAYPOINT_TIMEOUT_S", "45")),
         dryrun_realtime=os.getenv("LINEGUARD_DRYRUN_REALTIME", "false").lower()
         in {"1", "true", "yes"},
+        duplicate_wait_timeout_s=float(os.getenv("LINEGUARD_DUPLICATE_WAIT_TIMEOUT_S", "5")),
     )
 
 

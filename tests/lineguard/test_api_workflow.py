@@ -66,6 +66,11 @@ def test_two_stage_approval_workflow(lineguard_runtime) -> None:
     assert "generate_inspection_report" in names
     assert "report_review" in names
 
+    metrics = client.get("/api/metrics")
+    assert metrics.status_code == 200
+    assert metrics.json()["tasks_by_status"]["completed"] == 1
+    assert metrics.json()["trace_events_total"] >= len(trace.json())
+
 
 def test_plan_rejection_stops_workflow(lineguard_runtime) -> None:
     client = TestClient(app)

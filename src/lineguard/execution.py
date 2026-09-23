@@ -391,7 +391,18 @@ async def execute_uav_mission(task_id: str, plan: MissionPlan, backend: UAVBacke
     try:
         cached = ledger.claim(task_id, digest)
     except DispatchDenied as exc:
-        return _failed_execution(selected, check, str(exc), 0)
+        if str(exc).startswith("OUTCOME_NOT_CONFIRMED"):
+            try:
+                cached = await asyncio.to_thread(
+                    ledger.wait_for_terminal,
+                    task_id,
+                    digest,
+                    settings.duplicate_wait_timeout_s,
+                )
+            except DispatchDenied as wait_error:
+                return _failed_execution(selected, check, str(wait_error), 0)
+        else:
+            return _failed_execution(selected, check, str(exc), 0)
     if cached:
         result = MissionExecution.model_validate(cached)
         result.reused_result = True

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 from pathlib import Path
 
 import pytest
@@ -71,3 +72,28 @@ async def test_duplicate_execution_returns_saved_result(lineguard_runtime):
     assert first.status == second.status == "completed"
     assert second.reused_result
     assert first.vehicles == second.vehicles
+
+
+@pytest.mark.asyncio
+async def test_concurrent_duplicates_coalesce_to_one_execution(lineguard_runtime, monkeypatch):
+    import lineguard.execution as execution_module
+
+    task, plan = _mission(lineguard_runtime)
+    approve_mission(task.id, plan, "pytest", UAVBackend.DRYRUN)
+    original = execution_module._execute_uav_mission_once
+    calls = 0
+
+    async def delayed_once(*args, **kwargs):
+        nonlocal calls
+        calls += 1
+        await asyncio.sleep(0.05)
+        return await original(*args, **kwargs)
+
+    monkeypatch.setattr(execution_module, "_execute_uav_mission_once", delayed_once)
+    results = await asyncio.gather(
+        *(execute_uav_mission(task.id, plan, UAVBackend.DRYRUN) for _ in range(16))
+    )
+
+    assert calls == 1
+    assert all(result.status == "completed" for result in results)
+    assert sum(result.reused_result for result in results) == 15

@@ -10,10 +10,10 @@ from langchain_core.messages import HumanMessage
 from langchain_core.runnables import RunnableConfig
 from langgraph.types import Command
 from pydantic import BaseModel, ConfigDict, Field
-from sqlalchemy import update
 
 from lineguard import repository
 from lineguard.config import get_settings
+from lineguard.lifecycle import TERMINAL_STATUSES, InvalidTaskTransition
 from lineguard.models import (
     AssetType,
     AssetView,
@@ -35,6 +35,19 @@ from lineguard.video import analyze_galloping_video
 from lineguard.workflow import LineGuardState, lineguard_agent
 
 router = APIRouter(prefix="/api", tags=["lineguard"])
+
+
+def _mark_failed(task_id: str, stage: str, error: str) -> None:
+    record = repository.get_task(task_id)
+    if record is None or TaskStatus(record.status) in TERMINAL_STATUSES:
+        return
+    repository.transition_task(
+        task_id,
+        TaskStatus.FAILED,
+        expected=TaskStatus(record.status),
+        current_stage=stage,
+        error=error,
+    )
 
 
 class ReconcileRequest(BaseModel):
@@ -91,25 +104,18 @@ async def recovery_draft(task_id: str, payload: RecoveryRequest):
 
 @router.post("/tasks/{task_id}/start", response_model=TaskView)
 async def start_recovery_draft(task_id: str):
-    from lineguard.database import TaskRecord, get_session_factory
-
-    # CAS prevents duplicate starts. This endpoint starts planning, never bypasses approval.
-    with get_session_factory()() as session:
-        result = session.execute(
-            update(TaskRecord)
-            .where(
-                TaskRecord.id == task_id,
-                TaskRecord.status == "created",
-                TaskRecord.current_stage == "recovery_draft",
-            )
-            .values(status="planning")
-        )
-        session.commit()
-        claimed = result.rowcount == 1
     task = repository.get_task(task_id)
     if task is None:
         raise HTTPException(404, "Task not found")
-    if not claimed:
+    try:
+        repository.transition_task(
+            task_id,
+            TaskStatus.PLANNING,
+            expected=TaskStatus.CREATED,
+            expected_stage="recovery_draft",
+            current_stage="recovery_planning",
+        )
+    except InvalidTaskTransition:
         return _task_view(task)
     try:
         await lineguard_agent.ainvoke(
@@ -124,12 +130,7 @@ async def start_recovery_draft(task_id: str):
             config=_graph_config(task.id),
         )
     except Exception as exc:
-        repository.update_task(
-            task.id,
-            status="failed",
-            current_stage="recovery_planning_failed",
-            error=type(exc).__name__,
-        )
+        _mark_failed(task.id, "recovery_planning_failed", type(exc).__name__)
         raise HTTPException(500, "Recovery planning failed") from exc
     return _task_view(repository.get_task(task_id))
 
@@ -292,12 +293,7 @@ async def submit_task(payload: TaskCreate) -> TaskView:
             config=_graph_config(task.id),
         )
     except Exception as exc:
-        repository.update_task(
-            task.id,
-            status=TaskStatus.FAILED.value,
-            current_stage="failed",
-            error=str(exc),
-        )
+        _mark_failed(task.id, "failed", str(exc))
         repository.add_trace(
             task_id=task.id,
             event_type="workflow",
@@ -322,16 +318,13 @@ async def review_task(task_id: str, review: ReviewDecision) -> TaskView:
     task = repository.get_task(task_id)
     if task is None:
         raise HTTPException(status_code=404, detail="Task not found")
-    expected_status = {
-        "plan": TaskStatus.AWAITING_PLAN_APPROVAL.value,
-        "report": TaskStatus.AWAITING_REPORT_APPROVAL.value,
-    }[review.stage]
-    if task.status != expected_status:
+    try:
+        repository.claim_review(task_id, review.stage, **review.model_dump(exclude={"stage"}))
+    except InvalidTaskTransition as exc:
         raise HTTPException(
             status_code=409,
-            detail=f"Task is not awaiting {review.stage} approval",
-        )
-    repository.add_review(task_id, **review.model_dump())
+            detail=str(exc),
+        ) from exc
     repository.add_trace(
         task_id=task_id,
         event_type="review",
@@ -345,12 +338,7 @@ async def review_task(task_id: str, review: ReviewDecision) -> TaskView:
             config=_graph_config(task_id),
         )
     except Exception as exc:
-        repository.update_task(
-            task_id,
-            status=TaskStatus.FAILED.value,
-            current_stage="failed",
-            error=str(exc),
-        )
+        _mark_failed(task_id, "failed", str(exc))
         repository.add_trace(
             task_id=task_id,
             event_type="workflow",
@@ -360,6 +348,13 @@ async def review_task(task_id: str, review: ReviewDecision) -> TaskView:
         )
         raise HTTPException(status_code=500, detail="Workflow resume failed") from exc
     return _task_view(repository.get_task(task_id))
+
+
+@router.get("/metrics")
+async def get_operational_metrics() -> dict[str, Any]:
+    """Expose database-backed counters for local operations and smoke tests."""
+
+    return repository.operational_metrics()
 
 
 @router.get("/tasks/{task_id}/trace", response_model=list[TraceEvent])

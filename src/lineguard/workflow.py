@@ -137,11 +137,20 @@ async def parse_task_node(
     if not task_id:
         task = repository.create_task(text, state.get("asset_ids", []))
         task_id = task.id
-    repository.update_task(
-        task_id,
-        status=TaskStatus.PLANNING.value,
-        current_stage="task_parser",
-    )
+    task_record = repository.get_task(task_id)
+    if task_record is None:
+        raise KeyError(task_id)
+    if task_record.status == TaskStatus.CREATED.value:
+        repository.transition_task(
+            task_id,
+            TaskStatus.PLANNING,
+            expected=TaskStatus.CREATED,
+            current_stage="task_parser",
+        )
+    elif task_record.status == TaskStatus.PLANNING.value:
+        repository.update_task(task_id, current_stage="task_parser")
+    else:
+        raise RuntimeError(f"Task cannot enter planning from {task_record.status}")
     parsed = await _parse_with_llm(task_id, text, config)
     spec = parsed or parse_inspection_task(task_id, text)
     repository.update_task(task_id, task_spec=spec.model_dump(mode="json"))
@@ -176,9 +185,10 @@ def mission_planner_node(state: LineGuardState) -> LineGuardState:
     spec = InspectionTaskSpec.model_validate(state["task_spec"])
     plan = generate_uav_mission_plan(task_id, spec)
     serialized = plan.model_dump(mode="json")
-    repository.update_task(
+    repository.transition_task(
         task_id,
-        status=TaskStatus.AWAITING_PLAN_APPROVAL.value,
+        TaskStatus.AWAITING_PLAN_APPROVAL,
+        expected=TaskStatus.PLANNING,
         current_stage="plan_approval",
         mission_plan=serialized,
     )
@@ -202,9 +212,10 @@ def plan_approval_node(state: LineGuardState) -> LineGuardState:
     approved = decision.get("decision") == "approve"
     if not approved:
         reason = decision.get("reason") or "计划被人工驳回"
-        repository.update_task(
+        repository.transition_task(
             task_id,
-            status=TaskStatus.REJECTED.value,
+            TaskStatus.REJECTED,
+            expected=TaskStatus.PLAN_REVIEW_IN_PROGRESS,
             current_stage="plan_rejected",
             error=reason,
         )
@@ -218,9 +229,10 @@ def plan_approval_node(state: LineGuardState) -> LineGuardState:
         MissionPlan.model_validate(state["mission_plan"]),
         str(decision.get("reviewer", "human-reviewer")),
     )
-    repository.update_task(
+    repository.transition_task(
         task_id,
-        status=TaskStatus.EXECUTING.value,
+        TaskStatus.EXECUTING,
+        expected=TaskStatus.PLAN_REVIEW_IN_PROGRESS,
         current_stage="mission_execution",
     )
     _node_trace(task_id, "plan_approval", "approved")
@@ -237,9 +249,10 @@ async def mission_execution_node(state: LineGuardState) -> LineGuardState:
     execution = await execute_uav_mission(task_id, plan)
     serialized = execution.model_dump(mode="json")
     if execution.status == MissionExecutionStatus.FAILED:
-        repository.update_task(
+        repository.transition_task(
             task_id,
-            status=TaskStatus.FAILED.value,
+            TaskStatus.FAILED,
+            expected=TaskStatus.EXECUTING,
             current_stage="mission_execution_failed",
             mission_execution=serialized,
             error=execution.failure_reason or "UAV mission execution failed",
@@ -256,9 +269,10 @@ async def mission_execution_node(state: LineGuardState) -> LineGuardState:
             "workflow_status": TaskStatus.FAILED.value,
         }
 
-    repository.update_task(
+    repository.transition_task(
         task_id,
-        status=TaskStatus.ANALYZING.value,
+        TaskStatus.ANALYZING,
+        expected=TaskStatus.EXECUTING,
         current_stage="video_analysis",
         mission_execution=serialized,
     )
@@ -397,9 +411,10 @@ async def report_writer_node(
         ],
         narrative=narrative,
     )
-    repository.update_task(
+    repository.transition_task(
         task_id,
-        status=TaskStatus.AWAITING_REPORT_APPROVAL.value,
+        TaskStatus.AWAITING_REPORT_APPROVAL,
+        expected=TaskStatus.ANALYZING,
         current_stage="report_approval",
         report_id=report_id,
     )
@@ -423,9 +438,10 @@ def report_approval_node(state: LineGuardState) -> LineGuardState:
     approved = decision.get("decision") == "approve"
     if not approved:
         reason = decision.get("reason") or "报告被人工驳回"
-        repository.update_task(
+        repository.transition_task(
             task_id,
-            status=TaskStatus.REJECTED.value,
+            TaskStatus.REJECTED,
+            expected=TaskStatus.REPORT_REVIEW_IN_PROGRESS,
             current_stage="report_rejected",
             error=reason,
         )
@@ -434,9 +450,10 @@ def report_approval_node(state: LineGuardState) -> LineGuardState:
             "workflow_status": TaskStatus.REJECTED.value,
             "messages": [AIMessage(content=f"任务已在报告审批阶段驳回：{reason}")],
         }
-    repository.update_task(
+    repository.transition_task(
         task_id,
-        status=TaskStatus.COMPLETED.value,
+        TaskStatus.COMPLETED,
+        expected=TaskStatus.REPORT_REVIEW_IN_PROGRESS,
         current_stage="completed",
     )
     _node_trace(task_id, "report_approval", "approved")
