@@ -11,6 +11,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from provenance import benchmark_metadata
+
 import lineguard.execution as upgraded
 from lineguard.database import initialize_lineguard
 from lineguard.models import MissionPlan, UAVAssignment, UAVBackend, Waypoint
@@ -121,6 +123,7 @@ async def main():
 
         database._engine.dispose()
     output = {
+        "metadata": benchmark_metadata(ROOT),
         "seed": 20260919,
         "scope": "Synthetic synchronized constant-speed dry-run trajectories; no PX4/hardware validation",
         "safety": stats,

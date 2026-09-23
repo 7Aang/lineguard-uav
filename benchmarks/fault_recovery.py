@@ -15,6 +15,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from provenance import benchmark_metadata  # noqa: E402
+
 from lineguard.reliability import DispatchDenied, ExecutionLedger  # noqa: E402
 
 
@@ -127,6 +129,7 @@ def main():
                     }
                 )
     output = {
+        "metadata": benchmark_metadata(ROOT),
         "scope": __doc__,
         "cases": rows,
         "summary": {

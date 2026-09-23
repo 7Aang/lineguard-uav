@@ -14,6 +14,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
+from provenance import benchmark_metadata  # noqa: E402
+
 import lineguard.database as database  # noqa: E402
 import lineguard.execution as execution  # noqa: E402
 from lineguard.database import initialize_lineguard  # noqa: E402
@@ -85,6 +87,7 @@ async def main() -> None:
 
     latencies = [row["latency_ms"] for row in rows]
     output = {
+        "metadata": benchmark_metadata(ROOT),
         "scope": __doc__,
         "configuration": {
             "missions": missions,
