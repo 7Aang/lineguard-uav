@@ -1,9 +1,9 @@
 # Validation Status
 
-Validated on Windows on 2026-09-21:
+Validated on Windows on 2026-09-23:
 
 - `uv sync --frozen`
-- `uv run pytest -q`: 144 passed, 2 skipped
+- `uv run pytest -q`: 148 passed, 2 skipped
 - `uv run ruff format --check .` and `uv run ruff check .`
 - `uv run mypy src/`: 65 source files passed
 - FastAPI + Streamlit browser smoke test: task creation, plan approval, three-UAV
@@ -11,9 +11,18 @@ Validated on Windows on 2026-09-21:
 - Synthetic OpenCV frequency and amplitude assertions, including evidence-frame
   output under a Windows path containing non-ASCII characters
 - SQLite migration and end-to-end API workflow
+- Atomic task lifecycle transitions and concurrent review claiming
+- 100 concurrent dry-run requests across 20 missions: 100 completed, 20
+  underlying executions, 80 coalesced/cached responses, 0 duplicate executions
+- Database-backed `GET /api/metrics` counters for task status and trace failures
 - XML parsing of the transmission-line Gazebo world
 - PowerShell syntax parsing of the WSL launcher
 - `git diff --check`
+
+The concurrent-request result is a local Windows dry-run benchmark. Its measured
+P95 response latency was 2442.37 ms and it does not represent production throughput
+or PX4 timing. Machine-readable results include the source commit and environment
+under `benchmarks/results/`.
 
 Implemented but not executed in the current environment:
 

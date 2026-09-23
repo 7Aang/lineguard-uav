@@ -35,6 +35,10 @@ flowchart LR
 
 Both approval nodes use LangGraph `interrupt()`. The review API resumes the same
 thread with `Command(resume=...)`. A rejection is persisted and routed to `END`.
+The HTTP review path first performs an atomic compare-and-swap from an awaiting
+state to an in-progress state. Concurrent or stale review requests receive a 409
+instead of resuming the graph twice. Every durable status change is checked against
+an explicit transition table and recorded as a lifecycle trace event.
 
 ## Data Flow
 
@@ -51,6 +55,11 @@ thread with `Command(resume=...)`. A rejection is persisted and routed to `END`.
 - Report generation stores JSON, Markdown, HTML, evidence JPEG, displacement CSV,
   and displacement PNG.
 - Every node, tool, model attempt, and review receives an ordered Trace event.
+- Concurrent duplicate execution requests wait for the first matching execution
+  contract and reuse its committed result. A timeout never authorizes redispatch of
+  an unknown external outcome.
+- `GET /api/metrics` exposes database-backed task-status, trace-count, failure-count,
+  and average stage-duration counters for local operations.
 
 ## Runtime
 

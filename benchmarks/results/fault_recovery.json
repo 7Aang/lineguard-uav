@@ -1,4 +1,12 @@
 {
+  "metadata": {
+    "schema_version": "lineguard-benchmark-v1",
+    "generated_at": "2026-09-23T04:12:18.618418+00:00",
+    "git_commit": "a0b187b52a9f82ac18f3c2b9b4323505b62c188b",
+    "python": "3.12.6",
+    "platform": "Windows-11-10.0.22000-SP0",
+    "status": "COMPLETED"
+  },
   "scope": "Actual subprocess exits at ledger boundaries, with a synthetic dispatch log.\n\nThis is not PX4/hardware fault injection. 'Operator' resolution is a test fixture.\n",
   "cases": [
     {

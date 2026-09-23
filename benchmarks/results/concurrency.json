@@ -1,0 +1,731 @@
+{
+  "metadata": {
+    "schema_version": "lineguard-benchmark-v1",
+    "generated_at": "2026-09-23T04:13:38.127719+00:00",
+    "git_commit": "a0b187b52a9f82ac18f3c2b9b4323505b62c188b",
+    "python": "3.12.6",
+    "platform": "Windows-11-10.0.22000-SP0",
+    "status": "COMPLETED"
+  },
+  "scope": "Seeded local concurrency benchmark; dry-run only, not PX4 flight evidence.",
+  "configuration": {
+    "missions": 20,
+    "requests_per_mission": 5,
+    "total_requests": 100,
+    "uavs_per_mission": 3
+  },
+  "summary": {
+    "completed_requests": 100,
+    "failed_requests": 0,
+    "underlying_mission_executions": 20,
+    "coalesced_or_cached_requests": 80,
+    "duplicate_underlying_executions": 0,
+    "latency_ms": {
+      "mean": 1821.666,
+      "p50": 1811.754,
+      "p95": 2442.372
+    }
+  },
+  "requests": [
+    {
+      "task_id": "82dc7f2d-0f62-431c-abe7-04bd2795ab19",
+      "status": "completed",
+      "reused": false,
+      "latency_ms": 1646.132,
+      "failure_reason": null
+    },
+    {
+      "task_id": "82dc7f2d-0f62-431c-abe7-04bd2795ab19",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2279.15,
+      "failure_reason": null
+    },
+    {
+      "task_id": "82dc7f2d-0f62-431c-abe7-04bd2795ab19",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2276.885,
+      "failure_reason": null
+    },
+    {
+      "task_id": "82dc7f2d-0f62-431c-abe7-04bd2795ab19",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2269.235,
+      "failure_reason": null
+    },
+    {
+      "task_id": "82dc7f2d-0f62-431c-abe7-04bd2795ab19",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2266.457,
+      "failure_reason": null
+    },
+    {
+      "task_id": "0399bfec-34c6-4114-bd7d-fa395fe5b3eb",
+      "status": "completed",
+      "reused": false,
+      "latency_ms": 1571.21,
+      "failure_reason": null
+    },
+    {
+      "task_id": "0399bfec-34c6-4114-bd7d-fa395fe5b3eb",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2666.58,
+      "failure_reason": null
+    },
+    {
+      "task_id": "0399bfec-34c6-4114-bd7d-fa395fe5b3eb",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2697.827,
+      "failure_reason": null
+    },
+    {
+      "task_id": "0399bfec-34c6-4114-bd7d-fa395fe5b3eb",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2218.914,
+      "failure_reason": null
+    },
+    {
+      "task_id": "0399bfec-34c6-4114-bd7d-fa395fe5b3eb",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2225.793,
+      "failure_reason": null
+    },
+    {
+      "task_id": "3cf52375-dbfe-48bb-bbca-7aee51e025c8",
+      "status": "completed",
+      "reused": false,
+      "latency_ms": 1515.572,
+      "failure_reason": null
+    },
+    {
+      "task_id": "3cf52375-dbfe-48bb-bbca-7aee51e025c8",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2146.587,
+      "failure_reason": null
+    },
+    {
+      "task_id": "3cf52375-dbfe-48bb-bbca-7aee51e025c8",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2166.069,
+      "failure_reason": null
+    },
+    {
+      "task_id": "3cf52375-dbfe-48bb-bbca-7aee51e025c8",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2664.661,
+      "failure_reason": null
+    },
+    {
+      "task_id": "3cf52375-dbfe-48bb-bbca-7aee51e025c8",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2076.998,
+      "failure_reason": null
+    },
+    {
+      "task_id": "f5ebf997-9cd2-46e4-a399-c6c558883ed7",
+      "status": "completed",
+      "reused": false,
+      "latency_ms": 1437.126,
+      "failure_reason": null
+    },
+    {
+      "task_id": "f5ebf997-9cd2-46e4-a399-c6c558883ed7",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2123.113,
+      "failure_reason": null
+    },
+    {
+      "task_id": "f5ebf997-9cd2-46e4-a399-c6c558883ed7",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2089.204,
+      "failure_reason": null
+    },
+    {
+      "task_id": "f5ebf997-9cd2-46e4-a399-c6c558883ed7",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2130.474,
+      "failure_reason": null
+    },
+    {
+      "task_id": "f5ebf997-9cd2-46e4-a399-c6c558883ed7",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2169.88,
+      "failure_reason": null
+    },
+    {
+      "task_id": "457a7645-a793-485f-9149-1a59338ed0e7",
+      "status": "completed",
+      "reused": false,
+      "latency_ms": 1409.712,
+      "failure_reason": null
+    },
+    {
+      "task_id": "457a7645-a793-485f-9149-1a59338ed0e7",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2068.444,
+      "failure_reason": null
+    },
+    {
+      "task_id": "457a7645-a793-485f-9149-1a59338ed0e7",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2066.882,
+      "failure_reason": null
+    },
+    {
+      "task_id": "457a7645-a793-485f-9149-1a59338ed0e7",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2096.184,
+      "failure_reason": null
+    },
+    {
+      "task_id": "457a7645-a793-485f-9149-1a59338ed0e7",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2063.887,
+      "failure_reason": null
+    },
+    {
+      "task_id": "9f3db3be-b6e0-4f02-b8ad-170a926dfe52",
+      "status": "completed",
+      "reused": false,
+      "latency_ms": 1364.879,
+      "failure_reason": null
+    },
+    {
+      "task_id": "9f3db3be-b6e0-4f02-b8ad-170a926dfe52",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2567.02,
+      "failure_reason": null
+    },
+    {
+      "task_id": "9f3db3be-b6e0-4f02-b8ad-170a926dfe52",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2038.425,
+      "failure_reason": null
+    },
+    {
+      "task_id": "9f3db3be-b6e0-4f02-b8ad-170a926dfe52",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2442.372,
+      "failure_reason": null
+    },
+    {
+      "task_id": "9f3db3be-b6e0-4f02-b8ad-170a926dfe52",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2036.216,
+      "failure_reason": null
+    },
+    {
+      "task_id": "8ac07635-646a-4904-b27c-76f34df35ece",
+      "status": "completed",
+      "reused": false,
+      "latency_ms": 1322.31,
+      "failure_reason": null
+    },
+    {
+      "task_id": "8ac07635-646a-4904-b27c-76f34df35ece",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2031.683,
+      "failure_reason": null
+    },
+    {
+      "task_id": "8ac07635-646a-4904-b27c-76f34df35ece",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2319.204,
+      "failure_reason": null
+    },
+    {
+      "task_id": "8ac07635-646a-4904-b27c-76f34df35ece",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2433.737,
+      "failure_reason": null
+    },
+    {
+      "task_id": "8ac07635-646a-4904-b27c-76f34df35ece",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2082.67,
+      "failure_reason": null
+    },
+    {
+      "task_id": "7d8c8a6e-22c0-47dc-9ec3-a8e135f58380",
+      "status": "completed",
+      "reused": false,
+      "latency_ms": 1282.225,
+      "failure_reason": null
+    },
+    {
+      "task_id": "7d8c8a6e-22c0-47dc-9ec3-a8e135f58380",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1993.571,
+      "failure_reason": null
+    },
+    {
+      "task_id": "7d8c8a6e-22c0-47dc-9ec3-a8e135f58380",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2115.838,
+      "failure_reason": null
+    },
+    {
+      "task_id": "7d8c8a6e-22c0-47dc-9ec3-a8e135f58380",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2174.68,
+      "failure_reason": null
+    },
+    {
+      "task_id": "7d8c8a6e-22c0-47dc-9ec3-a8e135f58380",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1947.675,
+      "failure_reason": null
+    },
+    {
+      "task_id": "f2b033ac-2cdf-4d22-8e88-0d468a9f2667",
+      "status": "completed",
+      "reused": false,
+      "latency_ms": 1238.732,
+      "failure_reason": null
+    },
+    {
+      "task_id": "f2b033ac-2cdf-4d22-8e88-0d468a9f2667",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1969.368,
+      "failure_reason": null
+    },
+    {
+      "task_id": "f2b033ac-2cdf-4d22-8e88-0d468a9f2667",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1937.887,
+      "failure_reason": null
+    },
+    {
+      "task_id": "f2b033ac-2cdf-4d22-8e88-0d468a9f2667",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1884.034,
+      "failure_reason": null
+    },
+    {
+      "task_id": "f2b033ac-2cdf-4d22-8e88-0d468a9f2667",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1871.319,
+      "failure_reason": null
+    },
+    {
+      "task_id": "06d8da02-5e32-493f-8f77-ba6bf6c53654",
+      "status": "completed",
+      "reused": false,
+      "latency_ms": 1117.684,
+      "failure_reason": null
+    },
+    {
+      "task_id": "06d8da02-5e32-493f-8f77-ba6bf6c53654",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2318.39,
+      "failure_reason": null
+    },
+    {
+      "task_id": "06d8da02-5e32-493f-8f77-ba6bf6c53654",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1806.545,
+      "failure_reason": null
+    },
+    {
+      "task_id": "06d8da02-5e32-493f-8f77-ba6bf6c53654",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1865.015,
+      "failure_reason": null
+    },
+    {
+      "task_id": "06d8da02-5e32-493f-8f77-ba6bf6c53654",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1843.754,
+      "failure_reason": null
+    },
+    {
+      "task_id": "33fcb948-a47a-439f-a743-983f4f6acc99",
+      "status": "completed",
+      "reused": false,
+      "latency_ms": 1078.621,
+      "failure_reason": null
+    },
+    {
+      "task_id": "33fcb948-a47a-439f-a743-983f4f6acc99",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2329.507,
+      "failure_reason": null
+    },
+    {
+      "task_id": "33fcb948-a47a-439f-a743-983f4f6acc99",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2298.263,
+      "failure_reason": null
+    },
+    {
+      "task_id": "33fcb948-a47a-439f-a743-983f4f6acc99",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1757.524,
+      "failure_reason": null
+    },
+    {
+      "task_id": "33fcb948-a47a-439f-a743-983f4f6acc99",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2096.047,
+      "failure_reason": null
+    },
+    {
+      "task_id": "ca4ae6ec-a068-4421-b3d3-9a211f780960",
+      "status": "completed",
+      "reused": false,
+      "latency_ms": 1040.053,
+      "failure_reason": null
+    },
+    {
+      "task_id": "ca4ae6ec-a068-4421-b3d3-9a211f780960",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1862.183,
+      "failure_reason": null
+    },
+    {
+      "task_id": "ca4ae6ec-a068-4421-b3d3-9a211f780960",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1790.128,
+      "failure_reason": null
+    },
+    {
+      "task_id": "ca4ae6ec-a068-4421-b3d3-9a211f780960",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1900.224,
+      "failure_reason": null
+    },
+    {
+      "task_id": "ca4ae6ec-a068-4421-b3d3-9a211f780960",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1807.737,
+      "failure_reason": null
+    },
+    {
+      "task_id": "45b0b0a9-8c96-45de-8c54-3a7f7537d844",
+      "status": "completed",
+      "reused": false,
+      "latency_ms": 998.577,
+      "failure_reason": null
+    },
+    {
+      "task_id": "45b0b0a9-8c96-45de-8c54-3a7f7537d844",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1734.17,
+      "failure_reason": null
+    },
+    {
+      "task_id": "45b0b0a9-8c96-45de-8c54-3a7f7537d844",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1711.998,
+      "failure_reason": null
+    },
+    {
+      "task_id": "45b0b0a9-8c96-45de-8c54-3a7f7537d844",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1740.14,
+      "failure_reason": null
+    },
+    {
+      "task_id": "45b0b0a9-8c96-45de-8c54-3a7f7537d844",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1873.794,
+      "failure_reason": null
+    },
+    {
+      "task_id": "e09ebfdb-1edf-4e09-813e-b03a1f86560d",
+      "status": "completed",
+      "reused": false,
+      "latency_ms": 956.285,
+      "failure_reason": null
+    },
+    {
+      "task_id": "e09ebfdb-1edf-4e09-813e-b03a1f86560d",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2125.085,
+      "failure_reason": null
+    },
+    {
+      "task_id": "e09ebfdb-1edf-4e09-813e-b03a1f86560d",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1815.771,
+      "failure_reason": null
+    },
+    {
+      "task_id": "e09ebfdb-1edf-4e09-813e-b03a1f86560d",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1900.916,
+      "failure_reason": null
+    },
+    {
+      "task_id": "e09ebfdb-1edf-4e09-813e-b03a1f86560d",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1740.204,
+      "failure_reason": null
+    },
+    {
+      "task_id": "f7025283-daae-4946-a4e9-5543a1e4ac23",
+      "status": "completed",
+      "reused": false,
+      "latency_ms": 913.733,
+      "failure_reason": null
+    },
+    {
+      "task_id": "f7025283-daae-4946-a4e9-5543a1e4ac23",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2084.984,
+      "failure_reason": null
+    },
+    {
+      "task_id": "f7025283-daae-4946-a4e9-5543a1e4ac23",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 2043.507,
+      "failure_reason": null
+    },
+    {
+      "task_id": "f7025283-daae-4946-a4e9-5543a1e4ac23",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1631.053,
+      "failure_reason": null
+    },
+    {
+      "task_id": "f7025283-daae-4946-a4e9-5543a1e4ac23",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1786.454,
+      "failure_reason": null
+    },
+    {
+      "task_id": "d744e7f1-6476-4729-a612-9d379cf9d444",
+      "status": "completed",
+      "reused": false,
+      "latency_ms": 876.967,
+      "failure_reason": null
+    },
+    {
+      "task_id": "d744e7f1-6476-4729-a612-9d379cf9d444",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1782.944,
+      "failure_reason": null
+    },
+    {
+      "task_id": "d744e7f1-6476-4729-a612-9d379cf9d444",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1603.615,
+      "failure_reason": null
+    },
+    {
+      "task_id": "d744e7f1-6476-4729-a612-9d379cf9d444",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1612.157,
+      "failure_reason": null
+    },
+    {
+      "task_id": "d744e7f1-6476-4729-a612-9d379cf9d444",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1737.103,
+      "failure_reason": null
+    },
+    {
+      "task_id": "3d31d66f-0583-4480-9444-30ebe0eafa04",
+      "status": "completed",
+      "reused": false,
+      "latency_ms": 835.822,
+      "failure_reason": null
+    },
+    {
+      "task_id": "3d31d66f-0583-4480-9444-30ebe0eafa04",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1692.439,
+      "failure_reason": null
+    },
+    {
+      "task_id": "3d31d66f-0583-4480-9444-30ebe0eafa04",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1594.714,
+      "failure_reason": null
+    },
+    {
+      "task_id": "3d31d66f-0583-4480-9444-30ebe0eafa04",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1593.98,
+      "failure_reason": null
+    },
+    {
+      "task_id": "3d31d66f-0583-4480-9444-30ebe0eafa04",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1721.34,
+      "failure_reason": null
+    },
+    {
+      "task_id": "11c2f72a-9f32-4817-ad8b-3d7466280f84",
+      "status": "completed",
+      "reused": false,
+      "latency_ms": 1061.692,
+      "failure_reason": null
+    },
+    {
+      "task_id": "11c2f72a-9f32-4817-ad8b-3d7466280f84",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1747.78,
+      "failure_reason": null
+    },
+    {
+      "task_id": "11c2f72a-9f32-4817-ad8b-3d7466280f84",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1725.814,
+      "failure_reason": null
+    },
+    {
+      "task_id": "11c2f72a-9f32-4817-ad8b-3d7466280f84",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1734.388,
+      "failure_reason": null
+    },
+    {
+      "task_id": "11c2f72a-9f32-4817-ad8b-3d7466280f84",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1752.654,
+      "failure_reason": null
+    },
+    {
+      "task_id": "9f68049c-72f0-4b37-b9e5-4f3077bcd620",
+      "status": "completed",
+      "reused": false,
+      "latency_ms": 1020.852,
+      "failure_reason": null
+    },
+    {
+      "task_id": "9f68049c-72f0-4b37-b9e5-4f3077bcd620",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1708.241,
+      "failure_reason": null
+    },
+    {
+      "task_id": "9f68049c-72f0-4b37-b9e5-4f3077bcd620",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1796.964,
+      "failure_reason": null
+    },
+    {
+      "task_id": "9f68049c-72f0-4b37-b9e5-4f3077bcd620",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1755.063,
+      "failure_reason": null
+    },
+    {
+      "task_id": "9f68049c-72f0-4b37-b9e5-4f3077bcd620",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1703.897,
+      "failure_reason": null
+    },
+    {
+      "task_id": "e1c03aa7-915b-42af-b5fe-3cf2f7f85d87",
+      "status": "completed",
+      "reused": false,
+      "latency_ms": 979.191,
+      "failure_reason": null
+    },
+    {
+      "task_id": "e1c03aa7-915b-42af-b5fe-3cf2f7f85d87",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1708.377,
+      "failure_reason": null
+    },
+    {
+      "task_id": "e1c03aa7-915b-42af-b5fe-3cf2f7f85d87",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1687.114,
+      "failure_reason": null
+    },
+    {
+      "task_id": "e1c03aa7-915b-42af-b5fe-3cf2f7f85d87",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1665.094,
+      "failure_reason": null
+    },
+    {
+      "task_id": "e1c03aa7-915b-42af-b5fe-3cf2f7f85d87",
+      "status": "completed",
+      "reused": true,
+      "latency_ms": 1703.268,
+      "failure_reason": null
+    }
+  ]
+}

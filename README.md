@@ -8,7 +8,9 @@
 
 - **Agentic 工作流**：任务解析、规范检索、三机规划、计划审批、执行、视频分析、报告审批均进入可追踪状态机。
 - **安全边界**：限高、限速、地理围栏、最小机间距与 ENU→NED 转换由确定性代码实现，LLM 输出不能直接到达飞控。
+- **并发状态保护**：数据库 CAS 状态迁移和审批领取机制拒绝越级迁移、过期审批与并发重复审批。
 - **可恢复执行**：进程崩溃后从持久化 phase ledger 继续；使用 lease 防止双执行，并通过 outbox 幂等生成飞行与报告产物。
+- **重复请求合并**：执行中的同合约请求等待首次结果并复用，不再把正常并发误报为执行失败。
 - **证据化分析**：OpenCV 光流 + FFT/PCA；缺少标定、置信度不足或证据缺失时返回 `needs_review`。
 - **双后端**：默认 dry-run 便于本地复现；MAVSDK 后端与三实例 PX4 SITL 启动器已实现。
 
@@ -30,10 +32,11 @@ flowchart LR
 
 | 验证项 | 结果 | 说明 |
 | --- | ---: | --- |
-| 自动化测试 | 144 passed, 2 skipped | Windows 本地全量测试 |
+| 自动化测试 | 148 passed, 2 skipped | Windows 本地全量测试 |
 | 崩溃恢复 | 20/20 场景通过 | 4 个 ledger 边界，每个重复 5 次 |
 | 重复副作用 | 0 | 故障恢复基准中的 flight/report artifact 重复数 |
-| 静态检查 | Ruff + mypy 通过 | 65 个源文件 |
+| 并发重复请求 | 100/100 完成 | 20 个任务、每任务 5 个并发请求；底层执行 20 次，重复执行 0 |
+| 静态检查 | Ruff + mypy 通过 | 66 个源文件 |
 
 结果来自 dry-run、合成视频和本地服务链路。当前机器没有 Ubuntu/PX4/Gazebo 环境，因此仓库**不宣称**已完成真实飞行或 PX4 SITL 联调；边界详见 [`docs/VALIDATION.md`](docs/VALIDATION.md)。
 
@@ -67,6 +70,7 @@ uv run mypy src/
 
 ```powershell
 uv run pytest tests/lineguard/test_recovery.py tests/lineguard/test_reliability.py -q
+uv run python benchmarks/concurrency.py
 ```
 
 ## PX4 SITL（可选，尚待环境实测）
